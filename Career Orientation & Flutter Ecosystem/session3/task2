@@ -1,0 +1,67 @@
+2.Inside your Scaffold, add an ElevatedButton below the Text widgets in the Column. When pressed, the button should update the first Text widget
+to show 'Updated!' using setState().<br><br><em><strong>Hint:</strong> Use a String variable for the Text and update it inside the button's onPressed callback.</em>
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  String food = "My Favorite Food: Pizza";
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("My Favorites"),
+        ),
+
+        body: Column(
+          children: [
+
+            Text(
+              food,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            const Text(
+              "My Favorite IPL Team: Chennai Super Kings",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  food = "Updated!";
+                });
+              },
+              child: const Text("Update"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
