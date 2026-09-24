@@ -1,0 +1,16 @@
+3.Pick any app you use daily (like Zomato, Instagram, or Flipkart) and write a short feature request as if you were the product manager.
+Then, briefly describe which team members (designer, backend, mobile developer, tester) would be involved in delivering this feature and what each would do.
+
+Flipkart Feature Request: “Buy Again” Button
+
+Feature Request:
+As a Product Manager, I want to add a “Buy Again” button to Flipkart so users can quickly reorder products they have purchased before.
+
+Team Members Involved
+Team Member	What they would do
+Designer	Design the “Buy Again” button and the screen layout.
+Backend/API Developer	Create APIs to fetch the user's previous orders and product details.
+Mobile Developer	Add the “Buy Again” feature to the Flipkart mobile app.
+Tester/QA	Test the feature, check for bugs, and make sure reordering works correctly.
+
+Final result: The user can open their previous orders, tap “Buy Again,” and quickly reorder the product.
