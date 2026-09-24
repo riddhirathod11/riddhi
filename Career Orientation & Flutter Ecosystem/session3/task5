@@ -1,0 +1,90 @@
+5.Modify your build() method so that tapping the ElevatedButton adds a new Text widget to the Column each time, showing the current time of tap.
+<br><br><em><strong>Hint:</strong> Store a list of Strings and use map() to generate Text widgets from the list.</em>
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String food = "My Favorite Food: Pizza";
+
+  // Store tap times
+  List<String> tapTimes = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("My Favorites"),
+        ),
+
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+
+              // Button
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    String currentTime =
+                        TimeOfDay.now().format(context);
+
+                    tapTimes.add(currentTime);
+                  });
+                },
+                child: const Text("Add Current Time"),
+              ),
+
+              const SizedBox(height: 20),
+
+              // First Text
+              Text(
+                food,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Second Text
+              const Text(
+                "My Favorite IPL Team: Chennai Super Kings",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Create Text widgets from the list
+              ...tapTimes.map(
+                (time) => Text(
+                  "Tapped at: $time",
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
