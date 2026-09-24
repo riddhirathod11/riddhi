@@ -1,0 +1,171 @@
+3.Build a simple Flipkart-style product listing screen using Flutter widgets: show a product image, name, price, and a Buy button in a Card widget.
+Use a ListView to display at least three products.
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "Product App",
+      home: const ProductScreen(),
+    );
+  }
+}
+
+class ProductScreen extends StatelessWidget {
+  const ProductScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Products"),
+      ),
+
+      body: ListView(
+        padding: const EdgeInsets.all(10),
+        children: [
+
+          // Product 1
+          Card(
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Image.network(
+                    "https://picsum.photos/id/1/300/200",
+                    height: 150,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  const Text(
+                    "Smartphone",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 5),
+
+                  const Text(
+                    "₹15,999",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("Buy"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // Product 2
+          Card(
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Image.network(
+                    "https://picsum.photos/id/20/300/200",
+                    height: 150,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  const Text(
+                    "Laptop",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 5),
+
+                  const Text(
+                    "₹45,999",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("Buy"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // Product 3
+          Card(
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Image.network(
+                    "https://picsum.photos/id/30/300/200",
+                    height: 150,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  const Text(
+                    "Headphones",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 5),
+
+                  const Text(
+                    "₹1,999",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("Buy"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
