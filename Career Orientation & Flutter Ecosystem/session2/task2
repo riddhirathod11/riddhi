@@ -1,0 +1,32 @@
+2.Create a new Flutter widget called MusicCard that displays a song name and artist, similar to a Spotify playlist card. Use a Column for layout and add at least one Icon.
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Music Card"),
+        ),
+        body: Center(
+          child: Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.music_note, size: 50),
+                Text("Shape of You"),
+                Text("Ed Sheeran"),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
