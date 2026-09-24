@@ -1,0 +1,61 @@
+4. Rearrange the order of widgets inside your ColumnIn this task, rearrange the widgets inside the `Column` so 
+that the **ElevatedButton appears at the top**, followed by the two `Text` widgets.
+
+Code:
+dart
+body: Center(
+  child: Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      ElevatedButton(
+        onPressed: () {
+          setState(() {
+            food = "Updated!";
+          });
+        },
+        child: const Text("Update"),
+      ),
+
+      const SizedBox(height: 20),
+
+      Text(
+        food,
+        style: const TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+
+      const SizedBox(height: 20),
+
+      const Text(
+        "My Favorite IPL Team: Chennai Super Kings",
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ],
+  ),
+)
+
+UI Order:
+
+Before:
+
+1. Favorite Food Text
+2. Favorite IPL Team Text
+3. Button
+
+After rearranging:
+
+1. Update Button
+2. Favorite Food Text
+3. Favorite IPL Team Text
+
+How the UI changes:
+
+When the app is run, the **Update button moves to the top** of the screen. 
+The favorite food text appears below the button, and the favorite IPL team text appears below the food text.
+
+This happens because a `Column` displays its `children` **from top to bottom in the same order in which they are written in the code.
