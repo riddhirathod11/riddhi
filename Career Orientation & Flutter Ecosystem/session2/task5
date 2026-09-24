@@ -1,0 +1,68 @@
+5.Use ChatGPT or GitHub Copilot to suggest improvements to your MusicCard widget code (from task 2),such as better widget structuring or styling,
+and implement at least one suggestion.<br><br><em><strong>Hint:</strong> Paste your code and ask for Flutter best practices or UI enhancements.</em>
+
+
+import 'package:flutter/material.dart';
+
+class MusicCard extends StatelessWidget {
+  final String songName;
+  final String artist;
+
+  const MusicCard({
+    super.key,
+    required this.songName,
+    required this.artist,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 6,
+      margin: const EdgeInsets.all(12),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.music_note,
+              size: 50,
+            ),
+
+            const SizedBox(width: 15),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    songName,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 5),
+
+                  Text(
+                    artist,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const Icon(
+              Icons.play_circle_fill,
+              size: 35,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
