@@ -1,0 +1,41 @@
+2.Draw a simple diagram (on paper or using any online tool) showing how a mobile app team is structured in a typical 
+company, including at least: mobile developer, designer, backend/API developer, tester, and product manager.
+
+                 ┌─────────────────────┐
+                 │   PRODUCT MANAGER   │
+                 │ Plans & coordinates │
+                 └──────────┬──────────┘
+                            │
+          ┌─────────────────┼─────────────────┐
+          │                 │                 │
+          ▼                 ▼                 ▼
+ ┌────────────────┐ ┌──────────────┐ ┌────────────────────┐
+ │ MOBILE         │ │  DESIGNER    │ │ BACKEND / API      │
+ │ DEVELOPER      │ │              │ │ DEVELOPER          │
+ │                │ │ UI/UX Design │ │ Server & APIs      │
+ │ Builds the app │ │              │ │ Database            │
+ └───────┬────────┘ └──────┬───────┘ └──────────┬─────────┘
+         │                 │                    │
+         └─────────────────┼────────────────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │   TESTER / QA   │
+                  │ Finds bugs &    │
+                  │ tests the app   │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │   MOBILE APP    │
+                  │  Final Product  │
+                  └─────────────────┘
+
+Short explanation:
+
+Product Manager → plans the app and coordinates the team.
+Designer → designs the UI/UX.
+Mobile Developer → develops the Android/iOS app.
+Backend/API Developer → handles server, database, and APIs.
+Tester/QA → tests the app and finds bugs.
+Mobile App → final product.
