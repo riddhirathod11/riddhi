@@ -1,0 +1,15 @@
+3.Disconnect your device, run 'flutter run' again, and observe the error message. Reconnect the device and resolve any connection issues until the app launches successfully.
+<br><br><em><strong>Hint:</strong> If your device is not detected, check USB cable, drivers, and that USB debugging is enabled.</em>
+
+Disconnect your Android device from the computer.
+Run:
+flutter run
+Observe the device not found error.
+Reconnect your device using the USB cable.
+Check that USB Debugging is enabled.
+Run:
+flutter devices
+If needed, check the USB cable/drivers.
+Run:
+flutter run
+Confirm that the app launches successfully.
