@@ -1,0 +1,17 @@
+2.Open your insta_clone project and explore the lib/ directory. Add a new Dart file called home_screen.dart inside lib/, 
+and write a simple StatelessWidget named HomeScreen that displays the text 'Welcome to InstaClone!'.
+
+import 'package:flutter/material.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text('Welcome to InstaClone!'),
+      ),
+    );
+  }
+}
