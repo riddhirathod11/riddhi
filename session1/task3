@@ -1,0 +1,26 @@
+3.Edit the pubspec.yaml file in your insta_clone project to add the google_fonts package as a dependency. Run flutter pub get to install it, 
+and verify that google_fonts appears in your project’s .packages or pubspec.lock file.
+
+Step 1: Open your insta_clone project.
+
+Step 2: Open the pubspec.yaml file.
+
+Step 3: Find dependencies:.
+
+Step 4: Add google_fonts:
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^6.2.1
+
+Step 5: Save the file.
+
+Step 6: Open Terminal and run:
+
+flutter pub get
+
+Step 7: Open pubspec.lock and search for:
+
+google_fonts
+
