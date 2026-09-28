@@ -1,0 +1,16 @@
+1. Install Flutter and create insta_clone
+Setup:--
+
+  1.  Install the Flutter SDK from the official Flutter website.
+
+  2.  Install Android Studio and an Android emulator, or connect an Android phone with USB debugging enabled.
+
+  3.  Add Flutter to your system PATH.
+
+  4.Run:
+    flutter doctor
+
+Create the project:--
+    flutter create insta_clone
+    cd insta_clone
+    flutter run
