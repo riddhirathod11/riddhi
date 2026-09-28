@@ -1,0 +1,27 @@
+2.Inside main.dart, create a MaterialApp with a title 'Foodie Explorer' and set its home property to a Scaffold with an AppBar titled 'Foodie Explorer Home'. 
+Run the app and verify the AppBar appears at the top.
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyCoolApp());
+}
+
+class MyCoolApp extends StatelessWidget {
+  const MyCoolApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Foodie Explorer',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Foodie Explorer Home'),
+        ),
+        body: const Center(
+          child: Text('Welcome to Foodie Explorer!'),
+        ),
+      ),
+    );
+  }
+}
