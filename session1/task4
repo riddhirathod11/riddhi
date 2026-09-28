@@ -1,0 +1,23 @@
+4.Inside your insta_clone project, open the android/ and ios/ directories and identify one configuration file in each (for example, AndroidManifest.xml and Info.plist). 
+Briefly write in a comment at the top of each file what its role is in a Flutter app.
+
+Step 1: Android
+
+Open:
+
+android/app/src/main/AndroidManifest.xml
+
+Add this comment at the top:
+
+<!-- AndroidManifest.xml: Defines Android app settings, permissions, and app components. -->
+
+Step 2: iOS
+
+Open:
+
+ios/Runner/Info.plist
+
+Add this comment at the top:
+
+<!-- Info.plist: Defines iOS app settings, permissions, and configuration information. -->
+
