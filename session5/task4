@@ -1,0 +1,50 @@
+4.Refactor your main.dart so that all widget classes are moved to a separate file called widgets.dart, and only the main() function and runApp() call remain in main.dart.
+<br><br><em><strong>Constraint:</strong> main.dart should import widgets.dart and not contain any widget class definitions.</em>
+
+import 'package:flutter/material.dart';
+
+class MyCoolApp extends StatelessWidget {
+  const MyCoolApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Foodie Explorer',
+
+      routes: {
+        '/profile': (context) => const ProfileScreen(),
+      },
+
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Foodie Explorer Home'),
+        ),
+
+        body: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+            child: const Text('Go to Profile'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('My Profile'),
+      ),
+      body: const Center(
+        child: Text('Welcome to My Profile'),
+      ),
+    );
+  }
+}
