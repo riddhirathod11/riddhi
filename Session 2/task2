@@ -1,0 +1,10 @@
+2.In Android Studio, open the Plugins section and install the Flutter and Dart plugins. Restart the IDE and verify that both plugins are enabled in the settings.
+
+Steps:
+Open Android Studio.
+Go to Plugins.
+Search for Flutter and click Install.
+Install the Dart plugin when prompted.
+Click Restart IDE.
+Open Settings → Plugins → Installed.
+Verify that Flutter and Dart are Enabled.
