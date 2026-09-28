@@ -1,0 +1,18 @@
+5.List three differences you noticed between running your Flutter app on the emulator versus a real Android device.For each difference, explain how it might
+affect your development or testing process.\<br>\<br>\<em>\<strong>Hint:\</strong> Consider speed, device features, and debugging experience.\</emEmulator vs Real Android 
+Device
+
+ 1. Speed
+Emulator: May run slower depending on computer performance.
+Real Device: Runs with the actual device performance.
+Effect: Helps us test the real speed and performance of the app.
+
+ 2. Device Features
+Emulator: Simulates features like camera, GPS, and sensors.
+Real Device: Uses actual hardware features.
+Effect: Helps us test hardware-related features more accurately.
+
+3. Debugging
+Emulator:Easy to test different Android versions and screen sizes.
+Real Device: Helps find real-world device issues.
+Effect: Testing on both gives better app reliability.
