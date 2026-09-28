@@ -1,0 +1,28 @@
+5.Create a README.md file in your insta_clone project root that lists the main folders (lib/, android/, ios/, test/) and describes what each is used for in 1-2 sentences.
+<br><br><em><strong>Hint:</strong> Focus on what kind of code or files belong in each folder and why they matter for Flutter development.</em>
+
+Step 1: Open your insta_clone project root.
+
+Step 2: Create a new file:
+
+README.md
+
+Step 3: Add this content:
+
+# InstaClone
+
+## Main Folders
+
+### lib/
+Contains the main Dart and Flutter code, such as screens, widgets, and application logic.
+
+### android/
+Contains Android-specific configuration and native files required to run the Flutter app on Android.
+
+### ios/
+Contains iOS-specific configuration and native files required to run the Flutter app on iOS.
+
+### test/
+Contains Dart test files used to test Flutter widgets and application functionality.
+
+Step 4: Save the file.
