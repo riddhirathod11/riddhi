@@ -1,0 +1,26 @@
+5.Break down the widget tree of the main screen of your Flutter project by drawing or listing the parent-child relationship from MaterialApp down to the smallest
+widget you see.<br><br><em><strong>Hint:</strong> Start with MaterialApp, then Scaffold, then Column/Row, then Text/Icon, etc.</em>
+
+
+MaterialApp
+ └── MyApp
+      └── Scaffold
+           ├── AppBar
+           │    └── Text
+           │         └── "User Greeting"
+           │
+           └── Center
+                └── UserGreeting
+                     └── Text
+                          └── "Hello, Flutter Learner!"
+
+
+2. Parent–Child Relationship
+- MaterialApp: Main application widget.
+- MyApp: Custom widget that builds the main screen.
+- Scaffold: Provides the basic screen structure.
+- AppBar: Displays the top app bar.
+- Text: Displays the title User Greeting.
+- Center: Places its child in the center of the screen.
+- UserGreeting: Custom widget created in user_greeting.dart.
+- Text: Displays Hello, Flutter Learner!.
