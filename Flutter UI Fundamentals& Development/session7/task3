@@ -1,0 +1,112 @@
+3.Refactor a layout that uses fixed height and width for a Flipkart-style product grid to use Flexible and Expanded widgets instead, so the grid adapts smoothly on both
+mobile and tablet screens.<br><br><em><strong>Hint:</strong> Replace hardcoded dimensions with Flexible/Expanded and MediaQuery where needed.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ProductGridScreen(),
+    ),
+  );
+}
+
+class ProductGridScreen extends StatelessWidget {
+  const ProductGridScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    int crossAxisCount = screenWidth < 600 ? 2 : 4;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flipkart Products'),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+      ),
+      backgroundColor: Colors.grey[200],
+      body: GridView.builder(
+        padding: const EdgeInsets.all(10),
+        itemCount: 8,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: screenWidth < 600 ? 0.7 : 0.85,
+        ),
+        itemBuilder: (context, index) {
+          List<String> productNames = [
+            'Headphones',
+            'Smart Watch',
+            'Shoes',
+            'Backpack',
+            'Mobile',
+            'Laptop',
+            'Camera',
+            'Speaker',
+          ];
+
+          List<String> prices = [
+            '₹1,499',
+            '₹2,999',
+            '₹1,999',
+            '₹899',
+            '₹12,999',
+            '₹45,999',
+            '₹8,999',
+            '₹1,299',
+          ];
+
+          return Card(
+            elevation: 3,
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      color: Colors.blue.shade50,
+                      child: Icon(
+                        Icons.shopping_bag,
+                        size: screenWidth < 600 ? 45 : 65,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Flexible(
+                    child: Text(
+                      productNames[index],
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    prices[index],
+                    style: const TextStyle(
+                      color: Colors.green,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
