@@ -1,0 +1,118 @@
+3.Design a Column layout for a Flipkart product card: show product image (use any placeholder), product name, price, and a 'Buy Now' button stacked vertically with
+margin between each element.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ProductCardScreen(),
+    ),
+  );
+}
+
+class ProductCardScreen extends StatelessWidget {
+  const ProductCardScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flipkart Product Card'),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Card(
+          elevation: 5,
+          margin: const EdgeInsets.all(20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Product Image
+                Image.network(
+                  'https://placehold.co/300x200/png?text=Product+Image',
+                  height: 150,
+                  width: 250,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const SizedBox(
+                      height: 150,
+                      width: 250,
+                      child: Icon(
+                        Icons.shopping_bag,
+                        size: 100,
+                        color: Colors.blue,
+                      ),
+                    );
+                  },
+                ),
+
+                const SizedBox(height: 15),
+
+                // Product Name
+                const Text(
+                  'Wireless Headphones',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+
+                const SizedBox(height: 10),
+
+                // Product Price
+                const Text(
+                  '₹1,499',
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Buy Now Button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Buy Now button clicked!'),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orange,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 14,
+                      ),
+                    ),
+                    child: const Text(
+                      'Buy Now',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
