@@ -1,0 +1,126 @@
+1.Create a reusable Flutter widget called PlaylistCard that displays a playlist cover image, playlist name, and number of songs, similar to Spotify's playlist cards.
+Use this widget to show three different playlists in a Column inside playlist_screen.dart.
+
+
+import 'package:flutter/material.dart';
+
+class PlaylistCard extends StatelessWidget {
+  final String imageUrl;
+  final String playlistName;
+  final int songCount;
+
+  const PlaylistCard({
+    super.key,
+    required this.imageUrl,
+    required this.playlistName,
+    required this.songCount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: const Color(0xFF242424),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                imageUrl,
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: 80,
+                    height: 80,
+                    color: Colors.grey,
+                    child: const Icon(
+                      Icons.music_note,
+                      color: Colors.white,
+                      size: 35,
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    playlistName,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    '$songCount songs',
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(
+              Icons.play_circle_fill,
+              color: Colors.green,
+              size: 38,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PlaylistScreen extends StatelessWidget {
+  const PlaylistScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF121212),
+      appBar: AppBar(
+        title: const Text('My Playlists'),
+        backgroundColor: const Color(0xFF121212),
+        foregroundColor: Colors.white,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            PlaylistCard(
+              imageUrl:
+                  'https://picsum.photos/id/10/200/200',
+              playlistName: 'Chill Vibes',
+              songCount: 25,
+            ),
+            PlaylistCard(
+              imageUrl:
+                  'https://picsum.photos/id/20/200/200',
+              playlistName: 'Workout Mix',
+              songCount: 40,
+            ),
+            PlaylistCard(
+              imageUrl:
+                  'https://picsum.photos/id/30/200/200',
+              playlistName: 'Romantic Hits',
+              songCount: 32,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
