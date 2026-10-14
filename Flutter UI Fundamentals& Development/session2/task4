@@ -1,0 +1,94 @@
+4.Create a StatefulWidget called FollowerCountWidget that displays a YouTube-style follower count (e.g., '1.2K'). Add a button to increment the countby 1,000 each time 
+it's pressed and update the display using setState.<br><br><em><strong>Hint:</strong> Use setState inside the button's onPressed to update the count and format the number 
+as 'K' for thousands.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: FollowerCountWidget(),
+    ),
+  );
+}
+
+class FollowerCountWidget extends StatefulWidget {
+  const FollowerCountWidget({super.key});
+
+  @override
+  State<FollowerCountWidget> createState() =>
+      _FollowerCountWidgetState();
+}
+
+class _FollowerCountWidgetState extends State<FollowerCountWidget> {
+  int followers = 1200;
+
+  String formatCount(int count) {
+    if (count >= 1000) {
+      return '${(count / 1000).toStringAsFixed(1)}K';
+    }
+    return count.toString();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('YouTube Followers'),
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.play_circle_fill,
+              color: Colors.red,
+              size: 80,
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'My YouTube Channel',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              '${formatCount(followers)} Subscribers',
+              style: const TextStyle(
+                fontSize: 24,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 25),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  followers += 1000;
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25,
+                  vertical: 12,
+                ),
+              ),
+              child: const Text(
+                'Add 1,000 Followers',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
