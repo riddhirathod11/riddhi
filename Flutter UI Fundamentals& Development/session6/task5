@@ -1,0 +1,112 @@
+5.Refactor your code from any of the above tasks to extract the setState logic into a separate method (e.g., updateVote or toggleFavorite), and call this method
+from the appropriate callback.<br><br><em><strong>Constraint:</strong> The setState call should only appear inside your new method, not directly in the
+onPressed/onTap callback.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: RatingScreen(),
+    ),
+  );
+}
+
+class RatingScreen extends StatefulWidget {
+  const RatingScreen({super.key});
+
+  @override
+  State<RatingScreen> createState() => _RatingScreenState();
+}
+
+class _RatingScreenState extends State<RatingScreen> {
+  int rating = 0;
+
+  // Separate method to update the rating
+  void updateRating(int newRating) {
+    setState(() {
+      rating = newRating;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Zomato Rating'),
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Card(
+          elevation: 5,
+          margin: const EdgeInsets.all(20),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.restaurant,
+                  size: 60,
+                  color: Colors.red,
+                ),
+                const SizedBox(height: 15),
+
+                const Text(
+                  'Rate Your Experience',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(5, (index) {
+                    return IconButton(
+                      onPressed: () {
+                        updateRating(index + 1);
+                      },
+                      icon: Icon(
+                        index < rating
+                            ? Icons.star
+                            : Icons.star_border,
+                        color: index < rating
+                            ? Colors.amber
+                            : Colors.grey,
+                        size: 40,
+                      ),
+                    );
+                  }),
+                ),
+
+                const SizedBox(height: 15),
+
+                Text(
+                  'Your Rating: $rating / 5',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+                const SizedBox(height: 10),
+
+                Text(
+                  rating == 0
+                      ? 'Tap a star to rate'
+                      : 'Thank you for your rating!',
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
