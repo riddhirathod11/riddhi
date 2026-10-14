@@ -1,0 +1,41 @@
+4.Given a code snippet where the same styled button code is repeated in multiple places, refactor the code to extract a reusable AppButton widget that takes
+the button text and onPressed callback as parameters.<br><br><em><strong>Constraint:</strong> Your AppButton widget should support customizing the background color
+via a parameter.</em>
+
+
+import 'package:flutter/material.dart';
+
+class AppButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final Color backgroundColor;
+
+  const AppButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    required this.backgroundColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: backgroundColor,
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 14,
+        ),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
