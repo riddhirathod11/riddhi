@@ -1,0 +1,119 @@
+2.Refactor a screen that lists restaurants (using dummy data) so that each restaurant is displayed using a custom RestaurantCard widget. 
+The RestaurantCard should accept restaurant name, cuisine, and rating as parameters and be reused for each item in the list.<br><br><em><strong>Hint:</strong> 
+Pass the restaurant details as constructor arguments to RestaurantCard and use ListView.builder to display multiple cards.</em>
+
+
+import 'package:flutter/material.dart';
+
+class RestaurantCard extends StatelessWidget {
+  final String restaurantName;
+  final String cuisine;
+  final double rating;
+
+  const RestaurantCard({
+    super.key,
+    required this.restaurantName,
+    required this.cuisine,
+    required this.rating,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
+      ),
+      elevation: 4,
+      child: ListTile(
+        leading: const CircleAvatar(
+          backgroundColor: Colors.orange,
+          child: Icon(
+            Icons.restaurant,
+            color: Colors.white,
+          ),
+        ),
+        title: Text(
+          restaurantName,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        subtitle: Text(cuisine),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.star,
+              color: Colors.amber,
+              size: 20,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              rating.toStringAsFixed(1),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RestaurantScreen extends StatelessWidget {
+  const RestaurantScreen({super.key});
+
+  final List<Map<String, dynamic>> restaurants = const [
+    {
+      'name': 'Spice Garden',
+      'cuisine': 'North Indian',
+      'rating': 4.5,
+    },
+    {
+      'name': 'Pizza Corner',
+      'cuisine': 'Italian',
+      'rating': 4.2,
+    },
+    {
+      'name': 'Green Bowl',
+      'cuisine': 'Healthy Food',
+      'rating': 4.7,
+    },
+    {
+      'name': 'Dragon House',
+      'cuisine': 'Chinese',
+      'rating': 4.3,
+    },
+    {
+      'name': 'South Treat',
+      'cuisine': 'South Indian',
+      'rating': 4.6,
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Restaurants'),
+        backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+      ),
+      body: ListView.builder(
+        itemCount: restaurants.length,
+        itemBuilder: (context, index) {
+          final restaurant = restaurants[index];
+
+          return RestaurantCard(
+            restaurantName: restaurant['name'] as String,
+            cuisine: restaurant['cuisine'] as String,
+            rating: restaurant['rating'] as double,
+          );
+        },
+      ),
+    );
+  }
+}
