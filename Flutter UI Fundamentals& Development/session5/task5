@@ -1,0 +1,106 @@
+5.Add an asset image (such as a logo or album cover) to your project and display it at the top of SongInfoScreen using Image.asset().
+<br><br><em><strong>Hint:</strong> Update pubspec.yaml to include your asset, and place the image inside the assets/ folder.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SongInfoScreen(),
+    ),
+  );
+}
+
+class SongInfoScreen extends StatelessWidget {
+  const SongInfoScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Song Information'),
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Asset image at the top
+              Image.asset(
+                'assets/album.jpg',
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
+
+              const SizedBox(height: 20),
+
+              const Text(
+                'Perfect',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepPurple,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              const Text(
+                'Ed Sheeran',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.teal,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+
+              const SizedBox(height: 25),
+
+              ElevatedButton(
+                onPressed: () {
+                  print('Play Now button clicked!');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text(
+                  'Play Now',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              const Icon(
+                Icons.favorite,
+                color: Colors.red,
+                size: 40,
+              ),
+
+              const SizedBox(height: 20),
+
+              Image.network(
+                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                width: 200,
+                height: 200,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Text('Image could not be loaded');
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
