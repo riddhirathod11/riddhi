@@ -1,0 +1,110 @@
+2.Build a Zomato-style horizontal menu bar using a Row inside a Container — display four menu items (e.g., Home, Orders, Offers, Profile) with equal spacing
+and add padding around each item.<br><br><em><strong>Hint:</strong> Use MainAxisAlignment.spaceEvenly and EdgeInsets for padding.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ZomatoMenuBar(),
+    ),
+  );
+}
+
+class ZomatoMenuBar extends StatelessWidget {
+  const ZomatoMenuBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Zomato Menu'),
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
+      ),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            color: Colors.red,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const [
+                MenuItem(
+                  icon: Icons.home,
+                  title: 'Home',
+                ),
+                MenuItem(
+                  icon: Icons.receipt_long,
+                  title: 'Orders',
+                ),
+                MenuItem(
+                  icon: Icons.local_offer,
+                  title: 'Offers',
+                ),
+                MenuItem(
+                  icon: Icons.person,
+                  title: 'Profile',
+                ),
+              ],
+            ),
+          ),
+          const Expanded(
+            child: Center(
+              child: Text(
+                'Welcome to Zomato!',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MenuItem extends StatelessWidget {
+  final IconData icon;
+  final String title;
+
+  const MenuItem({
+    super.key,
+    required this.icon,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 6,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            color: Colors.white,
+            size: 26,
+          ),
+          const SizedBox(height: 5),
+          Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
