@@ -1,0 +1,92 @@
+3.Convert your SongTitleCard widget into a StatefulWidget and add a 'Like' heart icon button. When the button is tapped, toggle the heart color
+between grey and red using setState to show the liked/unliked state.
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SongTitleCard(),
+    ),
+  );
+}
+
+class SongTitleCard extends StatefulWidget {
+  const SongTitleCard({super.key});
+
+  @override
+  State<SongTitleCard> createState() => _SongTitleCardState();
+}
+
+class _SongTitleCardState extends State<SongTitleCard> {
+  bool isLiked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text('Now Playing'),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Container(
+          margin: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.grey[900],
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.music_note,
+                color: Colors.green,
+                size: 50,
+              ),
+              const SizedBox(width: 15),
+              const Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Perfect',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Ed Sheeran',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    isLiked = !isLiked;
+                  });
+                },
+                icon: Icon(
+                  isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: isLiked ? Colors.red : Colors.grey,
+                  size: 30,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
