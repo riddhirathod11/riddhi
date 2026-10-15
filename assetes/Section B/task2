@@ -1,0 +1,41 @@
+Build a Dart program that models a restaurant menu using a class and performs read, filter,and lookup operations on List and Map collections.
+
+class MenuItem {
+  String name;
+  double price;
+  bool isAvailable;
+
+  MenuItem(this.name, this.price, this.isAvailable);
+}
+
+void main() {
+  List<MenuItem> menu = [
+    MenuItem("Pizza", 150.0, true),
+    MenuItem("Burger", 80.0, true),
+    MenuItem("Pasta", 120.0, false),
+    MenuItem("Sandwich", 60.0, true),
+  ];
+
+  print("===== Restaurant Menu =====");
+
+  for (var item in menu) {
+    print(
+      "Name: ${item.name}, Price: Rs. ${item.price}, "
+      "Available: ${item.isAvailable}",
+    );
+  }
+
+  print("\n===== Available Items =====");
+
+  for (var item in menu) {
+    if (item.isAvailable) {
+      print("${item.name} - Rs. ${item.price}");
+    }
+  }
+
+  Map<String, double> menuMap = {
+    for (var item in menu) item.name: item.price,
+  };
+
+  print("\nPrice of Pizza: Rs. ${menuMap["Pizza"]}");
+}
