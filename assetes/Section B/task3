@@ -1,0 +1,111 @@
+Build a Flutter screen where the user taps + and – buttons to adjust the quantity of a food item,and the total price updates live with each tap.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: FoodOrderScreen(),
+    ),
+  );
+}
+
+class FoodOrderScreen extends StatefulWidget {
+  const FoodOrderScreen({super.key});
+
+  @override
+  State<FoodOrderScreen> createState() => _FoodOrderScreenState();
+}
+
+class _FoodOrderScreenState extends State<FoodOrderScreen> {
+  int quantity = 0;
+  double unitPrice = 100.0;
+
+  @override
+  Widget build(BuildContext context) {
+    double totalPrice = quantity * unitPrice;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Food Order"),
+        backgroundColor: Colors.orange,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Pizza",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            Text(
+              "Unit Price: Rs. ${unitPrice.toStringAsFixed(2)}",
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 25),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      if (quantity > 0) {
+                        quantity--;
+                      }
+                    });
+                  },
+                  child: const Text(
+                    "-",
+                    style: TextStyle(fontSize: 28),
+                  ),
+                ),
+                const SizedBox(width: 30),
+
+                Text(
+                  "$quantity",
+                  style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(width: 30),
+
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      quantity++;
+                    });
+                  },
+                  child: const Text(
+                    "+",
+                    style: TextStyle(fontSize: 28),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+
+            Text(
+              "Total Price: Rs. ${totalPrice.toStringAsFixed(2)}",
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.green,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
