@@ -1,0 +1,6 @@
+Use an AI tool of your choice (ChatGPT, Claude, GitHub Copilot, etc.) to help you write a Flutterscreen that:
+
+Write a Flutter screen using a StatefulWidget that displays ordered food items using ListView.builder. Each item must show its name, quantity, and unit price.
+Calculate and display the total order amount dynamically based on the items in the list. Add a Place Order button that uses setState() to update a status Text widget to 
+'Order Placed ›' when tapped. If the item list is empty, display 'Your cart is empty' centred on the screen instead of an empty ListView. Provide complete, runnable
+main.dart code.
