@@ -1,0 +1,28 @@
+Question: How would you design a Dart class to represent this order? Explain the role of theconstructor, describe how you would create multiple order objects in your
+program, and explainhow Dart's strong typing helps avoid data errors at compile time.
+
+class Order {
+  int orderId;
+  String customerName;
+  double amount;
+
+  Order(this.orderId, this.customerName, this.amount);
+}
+
+void main() {
+  Order order1 = Order(101, "Riddhi", 500.0);
+  Order order2 = Order(102, "rushita", 750.0);
+
+  print(order1.customerName);
+  print(order2.amount);
+}
+
+
+Explanation:
+
+1. Class: `Order` represents an order with an ID, customer name, and amount.
+2. Constructor: `Order()` initializes the properties when an object is created.
+3. Multiple objects: `order1` and `order2` represent two different orders.
+4. Strong typing: Dart ensures that `orderId` is an integer, `customerName` is a string, and `amount` is a double, helping catch type errors at compile time.
+
+Conclusion: Dart classes and constructors help organize order data, create multiple objects, and reduce data type errors.
