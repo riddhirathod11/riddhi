@@ -1,0 +1,16 @@
+Question: Explain the role of the build() method in a Flutter widget and describe what happensin the widget rendering pipeline when a widget's property changes. Why does 
+Flutter re-runbuild() rather than directly mutating the existing UI elements?
+
+The `build()` method in Flutter describes how a widget's UI should look. It returns a widget tree based on the widget's properties and state.
+
+When a widget's property changes:
+
+1. Flutter marks the widget as needing a rebuild.
+2. The `build()` method runs again to create an updated widget tree.
+3. Flutter compares the new widget tree with the existing element tree.
+4. Only the necessary changes are applied to the rendered UI.
+
+
+Why re-run `build()`?
+Flutter uses a declarative approach, making the UI easier to manage, predictable, and efficient. Instead of manually modifying UI elements, developers describe what 
+the UI should look like, and Flutter updates the necessary parts automatically.
