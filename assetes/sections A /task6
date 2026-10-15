@@ -1,0 +1,40 @@
+Question: Which Flutter layout widgets would you use to structure this card so it looksconsistent across screen sizes? Explain how MediaQuery, Expanded, or Flexible can be 
+used toreplace fixed pixel dimensions and make the card responsive.
+
+
+Answer:
+
+I would use the following Flutter layout widgets to create a responsive card:
+
+- Card: Provides the card's background and shape.
+- Column: Arranges widgets vertically.
+- Row: Arranges widgets horizontally.
+- Padding: Adds spacing around the content.
+- MediaQuery: Gets screen dimensions to adjust the card size according to the device.
+- Expanded: Makes a child fill the available space.
+- Flexible: Allows a child to resize without overflowing.
+
+Example:
+
+
+Card(
+  child: Padding(
+    padding: const EdgeInsets.all(16),
+    child: Row(
+      children: [
+        Expanded(
+          child: Text(
+            "Food Order",
+            maxLines: 2,
+          ),
+        ),
+        Flexible(
+          child: Text("₹500"),
+        ),
+      ],
+    ),
+  ),
+)
+
+
+Conclusion: Using `MediaQuery`, `Expanded`, and `Flexible` instead of fixed dimensions helps the card adapt to different screen sizes and prevents layout overflow.
