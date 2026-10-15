@@ -1,0 +1,9 @@
+Question: What case would you make for choosing Flutter over the other two options? CompareFlutter's cross-platform rendering approach to React Native's bridge model and
+to fully nativedevelopment, and explain which trade-offs matter most for a small team with a tight deadline.
+
+I would choose Flutter because it allows developers to build Android and iOS apps using a single Dart codebase, saving time and development costs.
+- Flutter: Uses its own rendering engine, provides consistent UI, and supports hot reload.
+- React Native: Uses JavaScript/TypeScript and native UI components, with communication between JavaScript and native code.
+- Native Development: Uses Kotlin for Android and Swift for iOS, offering strong platform-specific optimization but requiring separate codebases.
+Conclusion: For a small team with a three-month deadline, Flutter is a strong choice because it reduces code duplication, speeds up development, and maintains a
+consistent user experience across both platforms.
