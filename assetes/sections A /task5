@@ -1,0 +1,24 @@
+Question: Would you use a StatelessWidget or StatefulWidget for this screen? Justify yourchoice clearly, and explain the exact mechanism by which calling setState() 
+causes Flutter tore-draw only the affected portion of the widget tree.
+
+Answer:
+
+I would use a StatefulWidget if the screen contains changing data, such as a loading indicator, API results, or error messages.
+
+How `setState()` works:
+
+1. `setState()` updates the state variables.
+2. Flutter marks the corresponding `State` object as needing a rebuild.
+3. Flutter calls the widget’s `build()` method again.
+4. Flutter compares the new widget tree with the existing tree and updates only the necessary UI elements.
+
+Example:
+
+setState(() {
+  count++;
+});
+
+
+This updates the counter and refreshes the affected UI. Flutter does not rebuild the entire application; it rebuilds the relevant widget subtree and updates the necessary rendered elements.
+
+Conclusion: `StatefulWidget` is suitable for screens with changing data, while `StatelessWidget` is best for UI that does not manage changing state.
