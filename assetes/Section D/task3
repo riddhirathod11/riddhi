@@ -1,0 +1,4 @@
+A 3–4 line note explaining what you changed and why the AI's version needed it.
+
+I replaced Map<String, dynamic> with a strongly typed FoodItem class to reduce data type errors. I used fold() to calculate the total dynamically. I disabled the 
+Place Order button after it was tapped to prevent duplicate submissions. I also verified that an empty list displays the centred empty-cart message.
