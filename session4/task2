@@ -1,0 +1,9 @@
+2.Simulate a common Flutter environment error by temporarily renaming your Android Studio installation folder, then run flutter doctor again and describe the specific error 
+message you see.<br><br><em><strong>Hint:</strong> Restore the folder name after the test to avoid breaking your setup.</em>
+
+1. Rename `C:\Program Files\Android\Android Studio` to `Android Studio_backup`.
+2. Run this command in PowerShell:
+flutter doctor -v
+3. Expected warning: `[!] Android Studio — Android Studio not found at the expected path.`
+4. Take a screenshot of the actual output.
+5. Rename `Android Studio_backup` back to `Android Studio` and run `flutter doctor` again.
