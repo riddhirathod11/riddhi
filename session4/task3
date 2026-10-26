@@ -1,0 +1,8 @@
+3.Pick any warning or error from your flutter doctor output (real or simulated), and use the official Flutter documentation to find the recommended solution. 
+Write a summary (2-3 sentences) of the fix you found.
+
+found.
+Warning selected: Android Studio Flutter and Dart plugins are not installed.
+
+Fix: Open Android Studio, go to Settings → Plugins, search for the Flutter plugin, and install it. The Dart plugin is usually installed automatically with Flutter. 
+Restart Android Studio after installation.
