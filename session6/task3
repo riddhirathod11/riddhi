@@ -1,0 +1,59 @@
+3.Introduce a bug in your app by removing the setState() call from your counter button's onPressed function. Use the Flutter debug console to observe the logs and identify
+why the UI doesn't update.<br><br><em><strong>Hint:</strong> Check the debug output for any warnings or errors related to state changes.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Counter App'),
+          backgroundColor: Colors.purple,
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Count: $count',
+                style: const TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple,
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: () {
+                  // Bug: setState() is removed
+                  count++;
+                },
+                child: const Text('Increase Counter'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
