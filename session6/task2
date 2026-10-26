@@ -1,0 +1,56 @@
+2.Add a RaisedButton to your Flutter app that increases a counter each time it's pressed, showing the count on screen. Change the button color and label, then use 
+hot reload to verify the UI updates live.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Counter App'),
+          backgroundColor: Colors.purple,
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Count: $count',
+                style: const TextStyle(fontSize: 25),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple,
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    count++;
+                  });
+                },
+                child: const Text('Increase Counter'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
