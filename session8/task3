@@ -1,0 +1,41 @@
+3.Add a new Dart file called user_profile.dart in the lib folder and define a UserProfile class with properties: username (String), followers (int), 
+and bio (String). Create an instance of UserProfile in main.dart and print the username in the debug console.
+
+import 'package:flutter/material.dart';
+import 'user_profile.dart';
+
+void main() {
+  UserProfile user = UserProfile(
+    username: 'riddhi',
+    followers: 500,
+    bio: 'Flutter Developer',
+  );
+
+  debugPrint(user.username);
+
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Mini Instagram',
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Mini Instagram'),
+          backgroundColor: Colors.pink,
+        ),
+        body: const Center(
+          child: Text(
+            'Welcome to Mini Instagram!',
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+      ),
+    );
+  }
+}
