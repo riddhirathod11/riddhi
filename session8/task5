@@ -1,0 +1,13 @@
+5.List 3 ways to validate if your Flutter environment is set up correctly and describe what output or result you expect from each validation step.
+
+. Run flutter doctor
+- Command: flutter doctor
+- Expected result: Shows the status of Flutter, Dart, Android toolchain, and Android Studio. Ideally, all required components show green check marks (✓).
+2. Check the Flutter version
+- Command: flutter --version
+- Expected result: Displays the installed Flutter version, Dart version, and related version information.
+3. Run a Flutter application
+- Commands:
+  flutter create test_app
+  cd test_app
+  flutter run
