@@ -1,0 +1,24 @@
+1.Make a simple Flutter app with a single Text widget displaying 'Hello, Flutter!'. Change the text to 'Hot Reload Rocks!' and use hot reload to see the update
+instantly without restarting the app.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Text('Hello, Flutter!'),
+        ),
+      ),
+    );
+  }
+}
