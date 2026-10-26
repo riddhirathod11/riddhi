@@ -1,0 +1,5 @@
+4.Copy an error message from your flutter doctor output and paste it into ChatGPT. Ask for a step-by-step solution, then follow the suggested steps to resolve the error. 
+Share the exact prompt you used and whether the AI's answer helped you fix the issue.
+
+I copied the Flutter Doctor warning into ChatGPT and asked for a step-by-step solution. The AI suggested installing the Flutter and Dart plugins in Android Studio and restarting 
+the IDE. Yes, the AI's answer helped me understand how to fixthe issue.
