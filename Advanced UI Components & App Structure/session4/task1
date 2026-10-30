@@ -1,0 +1,92 @@
+1.Create a Flutter app screen that displays a vertical list of 10 food items (e.g., Pizza, Burger, Dosa, etc.) using ListView, and wrap each 
+item with an InkWell to show a SnackBar with the item name when tapped.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const FoodListScreen(),
+    );
+  }
+}
+
+class FoodListScreen extends StatelessWidget {
+  const FoodListScreen({super.key});
+
+  final List<String> foodItems = const [
+    'Pizza',
+    'Burger',
+    'Dosa',
+    'Biryani',
+    'Sandwich',
+    'Pasta',
+    'French Fries',
+    'Idli',
+    'Noodles',
+    'Ice Cream',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Food Items'),
+        backgroundColor: Colors.orange,
+        foregroundColor: Colors.white,
+      ),
+
+      body: ListView.builder(
+        itemCount: foodItems.length,
+        itemBuilder: (context, index) {
+          return Card(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 6,
+            ),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8),
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      '${foodItems[index]} selected!',
+                    ),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: ListTile(
+                leading: const Icon(
+                  Icons.restaurant,
+                  color: Colors.orange,
+                  size: 30,
+                ),
+                title: Text(
+                  foodItems[index],
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
