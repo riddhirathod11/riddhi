@@ -1,0 +1,72 @@
+3.Replace your static ListView with a ListView.builder that generates the list of IPL teams from a Dart List<String> variable, so you can easily change the 
+team names without editing the UI code.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: IPLScreen(),
+  ));
+}
+
+class IPLScreen extends StatelessWidget {
+  IPLScreen({super.key});
+
+  // List of IPL Teams
+  final List<String> teams = [
+    "Chennai Super Kings",
+    "Mumbai Indians",
+    "Royal Challengers Bengaluru",
+    "Kolkata Knight Riders",
+    "Rajasthan Royals",
+    "Sunrisers Hyderabad",
+    "Delhi Capitals",
+    "Punjab Kings",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("IPL Teams"),
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+      ),
+
+      body: ListView.builder(
+
+        // Total number of items
+        itemCount: teams.length,
+
+        // Generate each item dynamically
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.all(8),
+
+            child: Card(
+              elevation: 4,
+
+              child: ListTile(
+                leading: Icon(
+                  Icons.sports_cricket,
+                  color: Colors.deepPurple,
+                  size: 30,
+                ),
+
+                title: Text(
+                  teams[index],
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
