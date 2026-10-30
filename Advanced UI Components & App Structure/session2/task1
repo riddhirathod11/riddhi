@@ -1,0 +1,84 @@
+1.Convert a vertical list of food categories (like Zomato: Pizza, Biryani, Burger, Desserts, Chinese, South Indian) into a GridView.
+count in Flutter, displaying each category as a card with an icon and a title.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Food Categories',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: const FoodCategoryScreen(),
+    );
+  }
+}
+
+class FoodCategoryScreen extends StatelessWidget {
+  const FoodCategoryScreen({super.key});
+
+  final List<Map<String, dynamic>> categories = const [
+    {'title': 'Pizza', 'icon': Icons.local_pizza},
+    {'title': 'Biryani', 'icon': Icons.rice_bowl},
+    {'title': 'Burger', 'icon': Icons.lunch_dining},
+    {'title': 'Desserts', 'icon': Icons.icecream},
+    {'title': 'Chinese', 'icon': Icons.ramen_dining},
+    {'title': 'South Indian', 'icon': Icons.restaurant},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Food Categories'),
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          childAspectRatio: 1.2,
+          children: categories.map((category) {
+            return Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    category['icon'],
+                    size: 55,
+                    color: Colors.red,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    category['title'],
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+}
