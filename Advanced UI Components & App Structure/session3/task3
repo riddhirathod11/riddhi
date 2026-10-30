@@ -1,0 +1,194 @@
+3.Build a Flipkart-style product list using ListView.separated, where each product card shows product name and price, and group the products visually by
+category using a thicker divider and a category label above each group.<br><br><em><strong>Hint:</strong> Use a combination of ListView.separated and conditional 
+logic in separatorBuilder to insert a category label and thicker divider when the category changes.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const ProductListScreen(),
+    );
+  }
+}
+
+// Product Model
+class Product {
+  final String name;
+  final String price;
+  final String category;
+
+  const Product({
+    required this.name,
+    required this.price,
+    required this.category,
+  });
+}
+
+// Product List Screen
+class ProductListScreen extends StatelessWidget {
+  const ProductListScreen({super.key});
+
+  final List<Product> products = const [
+    Product(
+      name: 'Samsung Galaxy Phone',
+      price: '₹15,999',
+      category: 'Mobiles',
+    ),
+    Product(
+      name: 'iPhone 15',
+      price: '₹59,999',
+      category: 'Mobiles',
+    ),
+    Product(
+      name: 'OnePlus Nord',
+      price: '₹24,999',
+      category: 'Mobiles',
+    ),
+    Product(
+      name: 'Dell Laptop',
+      price: '₹45,000',
+      category: 'Electronics',
+    ),
+    Product(
+      name: 'HP Laptop',
+      price: '₹39,999',
+      category: 'Electronics',
+    ),
+    Product(
+      name: 'Wireless Headphones',
+      price: '₹1,999',
+      category: 'Electronics',
+    ),
+    Product(
+      name: 'Men T-Shirt',
+      price: '₹499',
+      category: 'Fashion',
+    ),
+    Product(
+      name: 'Women Kurti',
+      price: '₹799',
+      category: 'Fashion',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        title: const Text('Flipkart Products'),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+      ),
+
+      body: ListView.separated(
+        itemCount: products.length,
+
+        // Category divider
+        separatorBuilder: (context, index) {
+          if (products[index].category !=
+              products[index + 1].category) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Divider(
+                  color: Colors.blue,
+                  thickness: 4,
+                  height: 12,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Text(
+                    products[index + 1].category,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+
+          return const Divider(
+            color: Colors.grey,
+            thickness: 1,
+            height: 1,
+          );
+        },
+
+        // Product item
+        itemBuilder: (context, index) {
+          final product = products[index];
+
+          bool isFirstProduct = index == 0 ||
+              products[index - 1].category != product.category;
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (isFirstProduct)
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Text(
+                    product.category,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+
+              Card(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 5,
+                ),
+                elevation: 2,
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.shopping_bag,
+                    size: 40,
+                    color: Colors.blue,
+                  ),
+                  title: Text(
+                    product.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text(
+                    product.price,
+                    style: const TextStyle(
+                      color: Colors.green,
+                      fontSize: 16,
+                    ),
+                  ),
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 16,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
