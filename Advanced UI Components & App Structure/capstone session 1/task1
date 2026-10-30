@@ -1,0 +1,180 @@
+1.Create a navigation drawer in your Flutter app that slides from the left and displays the user's name, email, and profile picture at the top, similar to how
+  Zomato or Myntra shows user info in their side menu.
+
+  
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Food Delivery'),
+        backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+      ),
+
+      // Navigation Drawer
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            // User Profile Header
+            UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.deepOrange,
+              ),
+
+              accountName: const Text(
+                'Riddhi Rathod',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              accountEmail: const Text(
+                'riddhi@gmail.com',
+              ),
+
+              currentAccountPicture: const CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.person,
+                  size: 45,
+                  color: Colors.deepOrange,
+                ),
+              ),
+            ),
+
+            // Home
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+
+            // My Orders
+            ListTile(
+              leading: const Icon(Icons.shopping_bag_outlined),
+              title: const Text('My Orders'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const OrdersScreen(),
+                  ),
+                );
+              },
+            ),
+
+            // Settings
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsScreen(),
+                  ),
+                );
+              },
+            ),
+
+            const Divider(),
+
+            // Logout
+            ListTile(
+              leading: const Icon(
+                Icons.logout,
+                color: Colors.red,
+              ),
+              title: const Text(
+                'Logout',
+                style: TextStyle(color: Colors.red),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Logout Selected'),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+
+      body: const Center(
+        child: Text(
+          'Welcome to Food Delivery App!',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Orders Screen
+class OrdersScreen extends StatelessWidget {
+  const OrdersScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('My Orders')),
+      body: const Center(
+        child: Text(
+          'Welcome to My Orders Screen',
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
+
+// Settings Screen
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Settings')),
+      body: const Center(
+        child: Text(
+          'Welcome to Settings Screen',
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
