@@ -1,0 +1,118 @@
+5.Refactor your PlaylistScreen to use a DefaultTabController with a dynamic list of tab names (e.g., ['Favourites', 'Trending', 'Downloaded']) so you 
+can easily add or remove tabs by changing the list.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: PlaylistScreen(),
+    );
+  }
+}
+
+class PlaylistScreen extends StatelessWidget {
+  const PlaylistScreen({super.key});
+
+  // Dynamic list of tab names
+  final List<String> tabNames = const [
+    'Favourites',
+    'Trending',
+    'Downloaded',
+  ];
+
+  // Dynamic list of icons
+  final List<IconData> tabIcons = const [
+    Icons.favorite,
+    Icons.trending_up,
+    Icons.download,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: tabNames.length,
+
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("My Music"),
+          centerTitle: true,
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+
+          // Dynamic TabBar
+          bottom: TabBar(
+            isScrollable: true,
+            indicatorColor: Colors.white,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
+
+            tabs: List.generate(
+              tabNames.length,
+              (index) => Tab(
+                icon: Icon(tabIcons[index]),
+                text: tabNames[index],
+              ),
+            ),
+          ),
+        ),
+
+        // Dynamic TabBarView
+        body: TabBarView(
+          children: List.generate(
+            tabNames.length,
+            (index) => MusicTab(
+              title: tabNames[index],
+              icon: tabIcons[index],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Reusable Music Tab
+class MusicTab extends StatelessWidget {
+  final String title;
+  final IconData icon;
+
+  const MusicTab({
+    super.key,
+    required this.title,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            size: 90,
+            color: Colors.blue,
+          ),
+          const SizedBox(height: 15),
+          Text(
+            "$title Songs",
+            style: const TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
