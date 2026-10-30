@@ -1,0 +1,166 @@
+3.Maintain the selected index state in your app so that the correct BottomNavigationBar item stays highlighted when switching tabs.
+<br><br><em><strong>Hint:</strong> Use a State variable to track the current index and setState() to update it on tap.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MusicScreen(),
+    );
+  }
+}
+
+// Main Music Screen
+class MusicScreen extends StatefulWidget {
+  const MusicScreen({super.key});
+
+  @override
+  State<MusicScreen> createState() => _MusicScreenState();
+}
+
+class _MusicScreenState extends State<MusicScreen> {
+
+  // Store selected index
+  int selectedIndex = 0;
+
+  // Three different screens
+  final List<Widget> screens = [
+    const SongsScreen(),
+    const AlbumsScreen(),
+    const ProfileScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Music Navigation Demo"),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        centerTitle: true,
+      ),
+
+      // Display selected screen
+      body: screens[selectedIndex],
+
+      // Bottom Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selectedIndex,
+
+        // Update selected index
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.music_note),
+            label: "Songs",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.album),
+            label: "Albums",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Songs Screen
+class SongsScreen extends StatelessWidget {
+  const SongsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.music_note,
+            size: 80,
+            color: Colors.blue,
+          ),
+          SizedBox(height: 15),
+          Text(
+            "Songs Screen",
+            style: TextStyle(fontSize: 25),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Albums Screen
+class AlbumsScreen extends StatelessWidget {
+  const AlbumsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.album,
+            size: 80,
+            color: Colors.green,
+          ),
+          SizedBox(height: 15),
+          Text(
+            "Albums Screen",
+            style: TextStyle(fontSize: 25),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Profile Screen
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.person,
+            size: 80,
+            color: Colors.orange,
+          ),
+          SizedBox(height: 15),
+          Text(
+            "Profile Screen",
+            style: TextStyle(fontSize: 25),
+          ),
+        ],
+      ),
+    );
+  }
+}
