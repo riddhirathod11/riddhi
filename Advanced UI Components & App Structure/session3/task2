@@ -1,0 +1,89 @@
+2.Modify your PlaylistScreen so that the divider between playlist items is styled with a custom color (e.g., green) and thickness of 2 pixels to match 
+Spotify's branding.<br><br><em><strong>Hint:</strong> Use the Divider widget's color and thickness properties inside the separatorBuilder.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: const PlaylistScreen(),
+    );
+  }
+}
+
+class PlaylistScreen extends StatelessWidget {
+  const PlaylistScreen({super.key});
+
+  final List<String> playlists = const [
+    'Top Hits',
+    'My Favorites',
+    'Chill Vibes',
+    'Workout Mix',
+    'Romantic Songs',
+    'Party Hits',
+    'Daily Mix',
+    'Trending Songs',
+    'Old Memories',
+    'Relaxing Music',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text('My Playlists'),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+      ),
+      body: ListView.separated(
+        itemCount: playlists.length,
+
+        // Green divider with 2 pixels thickness
+        separatorBuilder: (context, index) {
+          return const Divider(
+            color: Colors.green,
+            thickness: 2,
+            height: 1,
+          );
+        },
+
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: const Icon(
+              Icons.music_note,
+              color: Colors.greenAccent,
+              size: 30,
+            ),
+            title: Text(
+              playlists[index],
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            subtitle: const Text(
+              'Playlist • Music',
+              style: TextStyle(color: Colors.grey),
+            ),
+            trailing: const Icon(
+              Icons.more_vert,
+              color: Colors.white,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
