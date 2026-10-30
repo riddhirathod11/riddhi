@@ -1,0 +1,86 @@
+1.Create a Flutter screen called PlaylistScreen that displays a vertical list of 10 Spotify-style playlist names using ListView.separated, 
+adding a thin divider between each playlist.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: const PlaylistScreen(),
+    );
+  }
+}
+
+class PlaylistScreen extends StatelessWidget {
+  const PlaylistScreen({super.key});
+
+  final List<String> playlists = const [
+    'Top Hits',
+    'My Favorites',
+    'Chill Vibes',
+    'Workout Mix',
+    'Romantic Songs',
+    'Party Hits',
+    'Daily Mix',
+    'Trending Songs',
+    'Old Memories',
+    'Relaxing Music',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text('My Playlists'),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+      ),
+      body: ListView.separated(
+        itemCount: playlists.length,
+        separatorBuilder: (context, index) {
+          return const Divider(
+            color: Colors.grey,
+            thickness: 0.5,
+            height: 1,
+          );
+        },
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: const Icon(
+              Icons.music_note,
+              color: Colors.greenAccent,
+              size: 30,
+            ),
+            title: Text(
+              playlists[index],
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            subtitle: const Text(
+              'Playlist • Music',
+              style: TextStyle(color: Colors.grey),
+            ),
+            trailing: const Icon(
+              Icons.more_vert,
+              color: Colors.white,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
