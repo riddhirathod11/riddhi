@@ -1,0 +1,227 @@
+3.Add a third tab to PlaylistScreen called 'Recently Played' and display a different icon on each tab using the Tab widget's icon property.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: PlaylistScreen(),
+    );
+  }
+}
+
+// Playlist Screen
+class PlaylistScreen extends StatelessWidget {
+  const PlaylistScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("My Music"),
+          centerTitle: true,
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          bottom: const TabBar(
+            indicatorColor: Colors.white,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
+            tabs: [
+              Tab(
+                icon: Icon(Icons.queue_music),
+                text: "My Playlists",
+              ),
+              Tab(
+                icon: Icon(Icons.favorite),
+                text: "Liked Songs",
+              ),
+              Tab(
+                icon: Icon(Icons.history),
+                text: "Recently Played",
+              ),
+            ],
+          ),
+        ),
+
+        body: const TabBarView(
+          children: [
+            MyPlaylistsTab(),
+            LikedSongsTab(),
+            RecentlyPlayedTab(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// My Playlists Tab
+class MyPlaylistsTab extends StatefulWidget {
+  const MyPlaylistsTab({super.key});
+
+  @override
+  State<MyPlaylistsTab> createState() => _MyPlaylistsTabState();
+}
+
+class _MyPlaylistsTabState extends State<MyPlaylistsTab>
+    with AutomaticKeepAliveClientMixin {
+
+  final List<String> songs = [
+    "Perfect - Ed Sheeran",
+    "Shape of You - Ed Sheeran",
+    "Believer - Imagine Dragons",
+    "Faded - Alan Walker",
+    "Let Me Love You - DJ Snake",
+    "Closer - The Chainsmokers",
+    "Senorita - Shawn Mendes",
+    "Memories - Maroon 5",
+    "Photograph - Ed Sheeran",
+    "Happier - Marshmello",
+  ];
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+
+    return ListView.builder(
+      key: const PageStorageKey('my_playlists'),
+      itemCount: songs.length,
+      itemBuilder: (context, index) {
+        return Card(
+          margin: const EdgeInsets.all(8),
+          child: ListTile(
+            leading: const Icon(
+              Icons.queue_music,
+              color: Colors.blue,
+            ),
+            title: Text(songs[index]),
+            trailing: const Icon(Icons.play_arrow),
+          ),
+        );
+      },
+    );
+  }
+}
+
+// Liked Songs Tab
+class LikedSongsTab extends StatefulWidget {
+  const LikedSongsTab({super.key});
+
+  @override
+  State<LikedSongsTab> createState() => _LikedSongsTabState();
+}
+
+class _LikedSongsTabState extends State<LikedSongsTab>
+    with AutomaticKeepAliveClientMixin {
+
+  final List<String> songs = [
+    "Night Changes - One Direction",
+    "Memories - Maroon 5",
+    "Love Yourself - Justin Bieber",
+    "Until I Found You - Stephen Sanchez",
+    "Dandelions - Ruth B.",
+    "Perfect - Ed Sheeran",
+    "Let Her Go - Passenger",
+    "Photograph - Ed Sheeran",
+    "Someone You Loved - Lewis Capaldi",
+    "Arcade - Duncan Laurence",
+  ];
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+
+    return ListView.builder(
+      key: const PageStorageKey('liked_songs'),
+      itemCount: songs.length,
+      itemBuilder: (context, index) {
+        return Card(
+          margin: const EdgeInsets.all(8),
+          child: ListTile(
+            leading: const Icon(
+              Icons.favorite,
+              color: Colors.red,
+            ),
+            title: Text(songs[index]),
+            trailing: const Icon(
+              Icons.play_arrow,
+              color: Colors.blue,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+// Recently Played Tab
+class RecentlyPlayedTab extends StatefulWidget {
+  const RecentlyPlayedTab({super.key});
+
+  @override
+  State<RecentlyPlayedTab> createState() =>
+      _RecentlyPlayedTabState();
+}
+
+class _RecentlyPlayedTabState extends State<RecentlyPlayedTab>
+    with AutomaticKeepAliveClientMixin {
+
+  final List<String> songs = [
+    "Until I Found You - Stephen Sanchez",
+    "Calm Down - Rema",
+    "Heat Waves - Glass Animals",
+    "Night Changes - One Direction",
+    "As It Was - Harry Styles",
+    "Levitating - Dua Lipa",
+    "Stay - Justin Bieber",
+    "Counting Stars - OneRepublic",
+    "Believer - Imagine Dragons",
+    "Faded - Alan Walker",
+  ];
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+
+    return ListView.builder(
+      key: const PageStorageKey('recently_played'),
+      itemCount: songs.length,
+      itemBuilder: (context, index) {
+        return Card(
+          margin: const EdgeInsets.all(8),
+          child: ListTile(
+            leading: const Icon(
+              Icons.history,
+              color: Colors.orange,
+            ),
+            title: Text(songs[index]),
+            trailing: const Icon(
+              Icons.play_arrow,
+              color: Colors.blue,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
