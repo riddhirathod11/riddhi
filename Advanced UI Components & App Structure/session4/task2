@@ -1,0 +1,146 @@
+2.Modify your list so that a long-press on any food item opens a bottom sheet with two options: 'Add to Favourites' and 'Share'.<br><br><em><strong>Hint:</strong> 
+Use GestureDetector or InkWell's onLongPress property and showModalBottomSheet().</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const FoodListScreen(),
+    );
+  }
+}
+
+class FoodListScreen extends StatelessWidget {
+  const FoodListScreen({super.key});
+
+  final List<String> foodItems = const [
+    'Pizza',
+    'Burger',
+    'Dosa',
+    'Biryani',
+    'Sandwich',
+    'Pasta',
+    'French Fries',
+    'Idli',
+    'Noodles',
+    'Ice Cream',
+  ];
+
+  // Show Bottom Sheet
+  void showFoodOptions(BuildContext context, String food) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(
+                Icons.favorite,
+                color: Colors.red,
+              ),
+              title: const Text('Add to Favourites'),
+              onTap: () {
+                Navigator.pop(context);
+
+                ScaffoldMessenger.of(this.context).showSnackBar(
+                  SnackBar(
+                    content: Text('$food added to Favourites!'),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.share,
+                color: Colors.blue,
+              ),
+              title: const Text('Share'),
+              onTap: () {
+                Navigator.pop(context);
+
+                ScaffoldMessenger.of(this.context).showSnackBar(
+                  SnackBar(
+                    content: Text('Sharing $food'),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Food Items'),
+        backgroundColor: Colors.orange,
+        foregroundColor: Colors.white,
+      ),
+
+      body: ListView.builder(
+        itemCount: foodItems.length,
+        itemBuilder: (context, index) {
+          final food = foodItems[index];
+
+          return Card(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 6,
+            ),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8),
+
+              // Single Tap
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('$food selected!'),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              },
+
+              // Long Press
+              onLongPress: () {
+                showFoodOptions(context, food);
+              },
+
+              child: ListTile(
+                leading: const Icon(
+                  Icons.restaurant,
+                  color: Colors.orange,
+                  size: 30,
+                ),
+                title: Text(
+                  food,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
