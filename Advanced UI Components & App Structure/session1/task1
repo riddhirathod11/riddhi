@@ -1,0 +1,52 @@
+1.Create a Flutter app screen that displays a static list of 8 trending IPL teams using a ListView widget, showing each team name as a separate Text widget.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: IPLScreen(),
+  ));
+}
+
+class IPLScreen extends StatelessWidget {
+  IPLScreen({super.key});
+
+  final List<String> teams = [
+    "Chennai Super Kings",
+    "Mumbai Indians",
+    "Royal Challengers Bengaluru",
+    "Kolkata Knight Riders",
+    "Rajasthan Royals",
+    "Sunrisers Hyderabad",
+    "Delhi Capitals",
+    "Punjab Kings",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Trending IPL Teams"),
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+      ),
+
+      body: ListView(
+        children: teams.map((team) {
+          return Padding(
+            padding: EdgeInsets.all(12),
+            child: Text(
+              team,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
