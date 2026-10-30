@@ -1,0 +1,83 @@
+1.Create a new Flutter app named music_nav_demo and add a BottomNavigationBar with three items: Songs, Albums, and Profile. Display the selected tab's name in
+the center of the screen.
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: MusicScreen(),
+  ));
+}
+
+class MusicScreen extends StatefulWidget {
+  const MusicScreen({super.key});
+
+  @override
+  State<MusicScreen> createState() => _MusicScreenState();
+}
+
+class _MusicScreenState extends State<MusicScreen> {
+
+  int selectedIndex = 0;
+
+  // Tab Names
+  final List<String> pages = [
+    "Songs",
+    "Albums",
+    "Profile",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Music Navigation Demo"),
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+      ),
+
+      // Display Selected Tab
+      body: Center(
+        child: Text(
+          pages[selectedIndex],
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+
+      // Bottom Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selectedIndex,
+
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+
+        selectedItemColor: Colors.deepPurple,
+        unselectedItemColor: Colors.grey,
+
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.music_note),
+            label: "Songs",
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.album),
+            label: "Albums",
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          ),
+        ],
+      ),
+    );
+  }
+}
