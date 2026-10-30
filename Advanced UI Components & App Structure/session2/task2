@@ -1,0 +1,85 @@
+2.Customize your GridView to show 3 columns on large screens (tablet/desktop) and 2 columns on smaller screens (mobile), so the layout is responsive.
+<br><br><em><strong>Hint:</strong> Use MediaQuery to check screen width and set crossAxisCount accordingly.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const FoodCategoryScreen(),
+    );
+  }
+}
+
+class FoodCategoryScreen extends StatelessWidget {
+  const FoodCategoryScreen({super.key});
+
+  final List<Map<String, dynamic>> categories = const [
+    {'title': 'Pizza', 'icon': Icons.local_pizza},
+    {'title': 'Biryani', 'icon': Icons.rice_bowl},
+    {'title': 'Burger', 'icon': Icons.lunch_dining},
+    {'title': 'Desserts', 'icon': Icons.icecream},
+    {'title': 'Chinese', 'icon': Icons.ramen_dining},
+    {'title': 'South Indian', 'icon': Icons.restaurant},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    int crossAxisCount = screenWidth >= 600 ? 3 : 2;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Food Categories'),
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: GridView.count(
+          crossAxisCount: crossAxisCount,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          childAspectRatio: 1.2,
+          children: categories.map((category) {
+            return Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    category['icon'],
+                    size: 50,
+                    color: Colors.red,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    category['title'],
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+}
