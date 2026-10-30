@@ -1,0 +1,274 @@
+4.Build a Flipkart-style product details page with tabs for 'Description', 'Reviews', and 'Q&A', each showing placeholder content inside TabBarView.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ProductDetailsScreen(),
+    );
+  }
+}
+
+class ProductDetailsScreen extends StatelessWidget {
+  const ProductDetailsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Product Details"),
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          centerTitle: true,
+          bottom: const TabBar(
+            isScrollable: true,
+            indicatorColor: Colors.white,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
+            tabs: [
+              Tab(
+                icon: Icon(Icons.description),
+                text: "Description",
+              ),
+              Tab(
+                icon: Icon(Icons.star),
+                text: "Reviews",
+              ),
+              Tab(
+                icon: Icon(Icons.question_answer),
+                text: "Q&A",
+              ),
+            ],
+          ),
+        ),
+
+        body: Column(
+          children: [
+            // Product Information
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              color: Colors.grey.shade100,
+              child: Row(
+                children: [
+                  Container(
+                    height: 100,
+                    width: 100,
+                    color: Colors.white,
+                    child: const Icon(
+                      Icons.phone_android,
+                      size: 65,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Smartphone",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          "Latest Android Smartphone",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          "₹14,999",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Tab Content
+            const Expanded(
+              child: TabBarView(
+                children: [
+                  DescriptionTab(),
+                  ReviewsTab(),
+                  QATab(),
+                ],
+              ),
+            ),
+          ],
+        ),
+
+        // Bottom Buttons
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () {},
+                  child: const Text("Add to Cart"),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Text("Buy Now"),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Description Tab
+class DescriptionTab extends StatelessWidget {
+  const DescriptionTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.all(16),
+      child: ListView(
+        children: [
+          Text(
+            "Product Description",
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 15),
+          Text(
+            "This smartphone comes with a modern design, "
+            "powerful processor and long-lasting battery.",
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(height: 15),
+          Text(
+            "Features:",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text("• 6.5-inch Display"),
+          Text("• 8GB RAM"),
+          Text("• 128GB Storage"),
+          Text("• 5000mAh Battery"),
+          Text("• High Quality Camera"),
+        ],
+      ),
+    );
+  }
+}
+
+// Reviews Tab
+class ReviewsTab extends StatelessWidget {
+  const ReviewsTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: const [
+        Text(
+          "Customer Reviews",
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 15),
+        ListTile(
+          leading: Icon(Icons.person, color: Colors.blue),
+          title: Text("Riya"),
+          subtitle: Text("Good product and nice performance."),
+          trailing: Text("⭐⭐⭐⭐⭐"),
+        ),
+        Divider(),
+        ListTile(
+          leading: Icon(Icons.person, color: Colors.blue),
+          title: Text("Amit"),
+          subtitle: Text("Battery backup is very good."),
+          trailing: Text("⭐⭐⭐⭐"),
+        ),
+        Divider(),
+        ListTile(
+          leading: Icon(Icons.person, color: Colors.blue),
+          title: Text("Priya"),
+          subtitle: Text("Value for money product."),
+          trailing: Text("⭐⭐⭐⭐⭐"),
+        ),
+      ],
+    );
+  }
+}
+
+// Q&A Tab
+class QATab extends StatelessWidget {
+  const QATab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: const [
+        Text(
+          "Questions & Answers",
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 15),
+        ListTile(
+          leading: Icon(Icons.question_answer, color: Colors.blue),
+          title: Text("Does this phone support 5G?"),
+          subtitle: Text("Yes, it supports 5G connectivity."),
+        ),
+        Divider(),
+        ListTile(
+          leading: Icon(Icons.question_answer, color: Colors.blue),
+          title: Text("How much RAM is available?"),
+          subtitle: Text("It comes with 8GB RAM."),
+        ),
+        Divider(),
+        ListTile(
+          leading: Icon(Icons.question_answer, color: Colors.blue),
+          title: Text("Is a charger included?"),
+          subtitle: Text("Yes, a compatible charger is included."),
+        ),
+      ],
+    );
+  }
+}
