@@ -1,0 +1,268 @@
+4.Implement gesture-based navigation so that when a user taps any service in the Home ListView or any category in the Explore GridView, the app navigates to a new
+details screen showing the selected service/category name and a short description.
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Service App',
+      theme: ThemeData(
+        primarySwatch: Colors.deepOrange,
+      ),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+// Service Model Data
+final List<Map<String, dynamic>> services = [
+  {
+    'name': 'Food',
+    'icon': Icons.restaurant,
+    'description': 'Order delicious food from your favorite restaurants.'
+  },
+  {
+    'name': 'Travel',
+    'icon': Icons.flight,
+    'description': 'Explore beautiful places and plan your next trip.'
+  },
+  {
+    'name': 'Shopping',
+    'icon': Icons.shopping_bag,
+    'description': 'Shop for clothes, accessories and more.'
+  },
+  {
+    'name': 'Entertainment',
+    'icon': Icons.movie,
+    'description': 'Discover movies, shows and entertainment.'
+  },
+  {
+    'name': 'Payments',
+    'icon': Icons.payment,
+    'description': 'Make easy and secure digital payments.'
+  },
+  {
+    'name': 'Sports',
+    'icon': Icons.sports_cricket,
+    'description': 'Explore sports, games and activities.'
+  },
+];
+
+// Navigation Function
+void openDetails(BuildContext context, Map<String, dynamic> item) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => DetailsScreen(
+        name: item['name'],
+        icon: item['icon'],
+        description: item['description'],
+      ),
+    ),
+  );
+}
+
+// Home Screen
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+        backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.explore),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ExploreScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+
+      body: ListView.builder(
+        itemCount: services.length,
+        itemBuilder: (context, index) {
+          final item = services[index];
+
+          return InkWell(
+            onTap: () {
+              openDetails(context, item);
+            },
+            child: Card(
+              margin: const EdgeInsets.all(10),
+              child: ListTile(
+                leading: Icon(
+                  item['icon'],
+                  color: Colors.deepOrange,
+                  size: 30,
+                ),
+                title: Text(item['name']),
+                subtitle: Text(item['description']),
+                trailing: const Icon(Icons.arrow_forward_ios),
+              ),
+            ),
+          );
+        },
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+        child: const Icon(Icons.grid_view),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ExploreScreen(),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+// Explore Screen
+class ExploreScreen extends StatelessWidget {
+  const ExploreScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Explore Categories'),
+        backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+      ),
+
+      body: GridView.builder(
+        padding: const EdgeInsets.all(12),
+        itemCount: services.length,
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+        ),
+
+        itemBuilder: (context, index) {
+          final item = services[index];
+
+          return InkWell(
+            onTap: () {
+              openDetails(context, item);
+            },
+            child: Card(
+              elevation: 4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    item['icon'],
+                    size: 55,
+                    color: Colors.deepOrange,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    item['name'],
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+// Details Screen
+class DetailsScreen extends StatelessWidget {
+  final String name;
+  final IconData icon;
+  final String description;
+
+  const DetailsScreen({
+    super.key,
+    required this.name,
+    required this.icon,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Service Details'),
+        backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+      ),
+
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 100,
+              color: Colors.deepOrange,
+            ),
+
+            const SizedBox(height: 20),
+
+            Text(
+              name,
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                description,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 17),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Go Back'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
