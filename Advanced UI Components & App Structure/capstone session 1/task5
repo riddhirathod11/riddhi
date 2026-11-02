@@ -1,0 +1,313 @@
+5.Refactor your code to extract the service/category item widgets into separate reusable Dart classes (e.g., ServiceListItem and CategoryGridItem), and update
+your ListView and GridView to use these classes.<br><br><em><strong>Hint:</strong> This makes your code cleaner and easier to maintain as your app grows.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Service App',
+      theme: ThemeData(
+        primarySwatch: Colors.deepOrange,
+      ),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+// Service Data
+final List<Map<String, dynamic>> services = [
+  {
+    'name': 'Food',
+    'icon': Icons.restaurant,
+    'description': 'Order delicious food from your favorite restaurants.',
+  },
+  {
+    'name': 'Travel',
+    'icon': Icons.flight,
+    'description': 'Explore beautiful places and plan your next trip.',
+  },
+  {
+    'name': 'Shopping',
+    'icon': Icons.shopping_bag,
+    'description': 'Shop for clothes, accessories and more.',
+  },
+  {
+    'name': 'Entertainment',
+    'icon': Icons.movie,
+    'description': 'Discover movies, shows and entertainment.',
+  },
+  {
+    'name': 'Payments',
+    'icon': Icons.payment,
+    'description': 'Make easy and secure digital payments.',
+  },
+  {
+    'name': 'Sports',
+    'icon': Icons.sports_cricket,
+    'description': 'Explore sports, games and activities.',
+  },
+];
+
+// Navigation Function
+void openDetails(BuildContext context, Map<String, dynamic> item) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => DetailsScreen(
+        name: item['name'],
+        icon: item['icon'],
+        description: item['description'],
+      ),
+    ),
+  );
+}
+
+// Reusable Service List Item
+class ServiceListItem extends StatelessWidget {
+  final String name;
+  final IconData icon;
+  final String description;
+  final VoidCallback onTap;
+
+  const ServiceListItem({
+    super.key,
+    required this.name,
+    required this.icon,
+    required this.description,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Card(
+        margin: const EdgeInsets.all(10),
+        child: ListTile(
+          leading: Icon(
+            icon,
+            color: Colors.deepOrange,
+            size: 30,
+          ),
+          title: Text(name),
+          subtitle: Text(description),
+          trailing: const Icon(Icons.arrow_forward_ios),
+        ),
+      ),
+    );
+  }
+}
+
+// Reusable Category Grid Item
+class CategoryGridItem extends StatelessWidget {
+  final String name;
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const CategoryGridItem({
+    super.key,
+    required this.name,
+    required this.icon,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Card(
+        elevation: 4,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 55,
+              color: Colors.deepOrange,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              name,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Home Screen
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+        backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.explore),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ExploreScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+
+      body: ListView.builder(
+        itemCount: services.length,
+        itemBuilder: (context, index) {
+          final item = services[index];
+
+          return ServiceListItem(
+            name: item['name'],
+            icon: item['icon'],
+            description: item['description'],
+            onTap: () {
+              openDetails(context, item);
+            },
+          );
+        },
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+        child: const Icon(Icons.grid_view),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ExploreScreen(),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+// Explore Screen
+class ExploreScreen extends StatelessWidget {
+  const ExploreScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Explore Categories'),
+        backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+      ),
+
+      body: GridView.builder(
+        padding: const EdgeInsets.all(12),
+        itemCount: services.length,
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+        ),
+
+        itemBuilder: (context, index) {
+          final item = services[index];
+
+          return CategoryGridItem(
+            name: item['name'],
+            icon: item['icon'],
+            onTap: () {
+              openDetails(context, item);
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+// Details Screen
+class DetailsScreen extends StatelessWidget {
+  final String name;
+  final IconData icon;
+  final String description;
+
+  const DetailsScreen({
+    super.key,
+    required this.name,
+    required this.icon,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Service Details'),
+        backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+      ),
+
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 100,
+              color: Colors.deepOrange,
+            ),
+            const SizedBox(height: 20),
+
+            Text(
+              name,
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                description,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 17),
+              ),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Go Back'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
