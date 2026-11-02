@@ -1,0 +1,247 @@
+3.Refine the spacing and alignment of your drawer and tab content so that all text, icons, and images have at least 16px padding from the screen edges and are
+vertically centered within their containers.<br><br><em><strong>Hint:</strong> Use Padding and Center widgets to achieve consistent UI spacing.</em>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'My App',
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+      ),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade100,
+
+        // AppBar
+        appBar: AppBar(
+          title: const Text('Explore Services'),
+          backgroundColor: Colors.deepPurple,
+          foregroundColor: Colors.white,
+
+          // TabBar
+          bottom: const TabBar(
+            indicatorColor: Colors.white,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
+            tabs: [
+              Tab(
+                icon: Icon(Icons.trending_up),
+                text: 'Trending',
+              ),
+              Tab(
+                icon: Icon(Icons.favorite),
+                text: 'Favorites',
+              ),
+              Tab(
+                icon: Icon(Icons.location_on),
+                text: 'Nearby',
+              ),
+            ],
+          ),
+        ),
+
+        // Navigation Drawer
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              // Profile Header
+              UserAccountsDrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.deepPurple,
+                ),
+                accountName: const Text(
+                  'Riddhi Rathod',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                accountEmail: const Text(
+                  'riddhi@gmail.com',
+                ),
+                currentAccountPicture: const CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300',
+                  ),
+                ),
+              ),
+
+              // Drawer Items
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    drawerItem(
+                      context,
+                      Icons.home,
+                      'Home',
+                    ),
+                    drawerItem(
+                      context,
+                      Icons.person,
+                      'My Profile',
+                    ),
+                    drawerItem(
+                      context,
+                      Icons.shopping_bag,
+                      'My Orders',
+                    ),
+                    drawerItem(
+                      context,
+                      Icons.favorite,
+                      'Favorites',
+                    ),
+                    drawerItem(
+                      context,
+                      Icons.settings,
+                      'Settings',
+                    ),
+
+                    const Divider(),
+
+                    drawerItem(
+                      context,
+                      Icons.logout,
+                      'Logout',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // TabBarView
+        body: const TabBarView(
+          children: [
+            // Trending Tab
+            TabContent(
+              icon: Icons.trending_up,
+              title: 'Trending Services',
+              subtitle: 'Explore popular services',
+              color: Colors.deepPurple,
+            ),
+
+            // Favorites Tab
+            TabContent(
+              icon: Icons.favorite,
+              title: 'Favorite Services',
+              subtitle: 'View your favorite services',
+              color: Colors.red,
+            ),
+
+            // Nearby Tab
+            TabContent(
+              icon: Icons.location_on,
+              title: 'Nearby Services',
+              subtitle: 'Find services near you',
+              color: Colors.green,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Reusable Drawer Item
+  Widget drawerItem(
+    BuildContext context,
+    IconData icon,
+    String title,
+  ) {
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 4,
+      ),
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: () {
+        Navigator.pop(context);
+      },
+    );
+  }
+}
+
+// Reusable Tab Content Widget
+class TabContent extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final Color color;
+
+  const TabContent({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+
+          children: [
+            Icon(
+              icon,
+              size: 75,
+              color: color,
+            ),
+
+            const SizedBox(height: 16),
+
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
