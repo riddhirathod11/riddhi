@@ -1,0 +1,272 @@
+2.<p>Extend `study_planner` so the 6 tasks from a successful fetch are kept in a variable `_cachedTasks` inside the home screen's State. With the switch off, 
+'Fetch my tasks' must show the cached tasks under an orange banner 'Offline: showing last copy'; with no copy it keeps the old message. Test: fetch online, switch off, 
+fetch again, then hot restart, switch off and fetch again; the old message must return. Constraint: Do not use any storage package.</p>
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const StudyPlannerApp());
+}
+
+class StudyPlannerApp extends StatelessWidget {
+  const StudyPlannerApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Study Planner',
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        scaffoldBackgroundColor: const Color(0xFFF5F3FF),
+      ),
+      home: const StudyPlannerScreen(),
+    );
+  }
+}
+
+class StudyPlannerScreen extends StatefulWidget {
+  const StudyPlannerScreen({super.key});
+
+  @override
+  State<StudyPlannerScreen> createState() =>
+      _StudyPlannerScreenState();
+}
+
+class _StudyPlannerScreenState
+    extends State<StudyPlannerScreen> {
+
+  bool internetAvailable = true;
+  bool isLoading = false;
+  bool isOfflineCache = false;
+
+  List<String> tasks = [];
+
+  // Temporary cache
+  List<String> _cachedTasks = [];
+
+  // Hard-coded tasks
+  final List<String> allTasks = [
+    'Maths - Trigonometry - 45 min',
+    'Science - Physics - 30 min',
+    'English - Grammar - 40 min',
+    'Flutter - Dart Programming - 60 min',
+    'Computer - Database - 35 min',
+    'Gujarati - Reading - 20 min',
+  ];
+
+  // Fetch Tasks
+  Future<void> fetchTasks() async {
+
+    // Internet OFF
+    if (!internetAvailable) {
+
+      setState(() {
+        isLoading = false;
+
+        if (_cachedTasks.isNotEmpty) {
+          tasks = List.from(_cachedTasks);
+          isOfflineCache = true;
+        } else {
+          tasks.clear();
+          isOfflineCache = false;
+        }
+      });
+
+      return;
+    }
+
+    // Internet ON
+    setState(() {
+      isLoading = true;
+      tasks.clear();
+      isOfflineCache = false;
+    });
+
+    await Future.delayed(
+      const Duration(seconds: 2),
+    );
+
+    if (!mounted) return;
+
+    setState(() {
+      tasks = List.from(allTasks);
+
+      // Save last successful fetch in memory
+      _cachedTasks = List.from(tasks);
+
+      isLoading = false;
+      isOfflineCache = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Study Planner',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.deepPurple,
+        centerTitle: true,
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+
+        child: Column(
+          children: [
+
+            // Internet Switch
+            Card(
+              child: SwitchListTile(
+                title: const Text(
+                  'Internet available',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                value: internetAvailable,
+                activeThumbColor: Colors.deepPurple,
+                onChanged: (value) {
+                  setState(() {
+                    internetAvailable = value;
+                  });
+                },
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Fetch Button
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: isLoading ? null : fetchTasks,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text(
+                  'Fetch my tasks',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Loading
+            if (isLoading)
+              const Expanded(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+
+            // Offline with cached tasks
+            else if (isOfflineCache)
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+
+                    // Orange Banner
+                    Container(
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Text(
+                        'Offline: showing last copy',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+
+                    const SizedBox(height: 12),
+
+                    Expanded(
+                      child: buildTaskList(),
+                    ),
+                  ],
+                ),
+              )
+
+            // No cached data
+            else if (!internetAvailable && tasks.isEmpty)
+              const Expanded(
+                child: Center(
+                  child: Text(
+                    'No internet and no saved data',
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+
+            // Online task list
+            else if (tasks.isNotEmpty)
+              Expanded(
+                child: buildTaskList(),
+              )
+
+            // Initial message
+            else
+              const Expanded(
+                child: Center(
+                  child: Text(
+                    'Press Fetch my tasks',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Reusable Task List
+  Widget buildTaskList() {
+    return ListView.builder(
+      itemCount: tasks.length,
+      itemBuilder: (context, index) {
+        return Card(
+          margin: const EdgeInsets.only(bottom: 10),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.deepPurple,
+              child: Text(
+                '${index + 1}',
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            title: Text(tasks[index]),
+            trailing: const Icon(
+              Icons.check_circle_outline,
+              color: Colors.deepPurple,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
