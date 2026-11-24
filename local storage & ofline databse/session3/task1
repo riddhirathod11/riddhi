@@ -1,0 +1,161 @@
+1.<p>Create a Flutter project `expense_tracker`, add the `sqflite` dependency in `pubspec.yaml` and run `flutter pub get`. From a State's `initState`, open a
+database file `expense_tracker.db` and run `CREATE TABLE IF NOT EXISTS expenses` with columns `id INTEGER PRIMARY KEY AUTOINCREMENT`, `title TEXT NOT NULL`, 
+`amount REAL NOT NULL`, `category TEXT NOT NULL`, `date TEXT NOT NULL`. Show 'Database ready' and `db.path` on screen. Hint: `getDatabasesPath()` returns a Future; 
+build the file path as `'$folder/expense_tracker.db'`.</p>
+
+
+import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Expense Tracker',
+      theme: ThemeData(
+        colorSchemeSeed: Colors.deepPurple,
+        useMaterial3: true,
+      ),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Database? database;
+
+  String message = 'Opening database...';
+  String databasePath = '';
+
+  @override
+  void initState() {
+    super.initState();
+    openDatabaseFile();
+  }
+
+  Future<void> openDatabaseFile() async {
+    try {
+      // Get database folder
+      String folder = await getDatabasesPath();
+
+      // Create database file path
+      String path = '$folder/expense_tracker.db';
+
+      // Open database and create table
+      Database db = await openDatabase(
+        path,
+        version: 1,
+        onCreate: (db, version) async {
+          await db.execute('''
+            CREATE TABLE IF NOT EXISTS expenses (
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              title TEXT NOT NULL,
+              amount REAL NOT NULL,
+              category TEXT NOT NULL,
+              date TEXT NOT NULL
+            )
+          ''');
+        },
+      );
+
+      if (!mounted) return;
+
+      setState(() {
+        database = db;
+        databasePath = db.path;
+        message = 'Database ready';
+      });
+    } catch (e) {
+      if (!mounted) return;
+
+      setState(() {
+        message = 'Database error: $e';
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    database?.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Expense Tracker'),
+        centerTitle: true,
+      ),
+
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.storage,
+                size: 70,
+                color: Colors.deepPurple,
+              ),
+
+              const SizedBox(height: 20),
+
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              if (databasePath.isNotEmpty)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Database Path:',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        SelectableText(
+                          databasePath,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
